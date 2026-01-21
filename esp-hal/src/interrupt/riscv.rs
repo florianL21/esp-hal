@@ -28,6 +28,8 @@ use crate::{
     peripherals::{INTERRUPT_CORE0, Interrupt},
     system::Cpu,
 };
+#[cfg(multi_core)]
+use crate::peripherals::INTERRUPT_CORE1;
 
 /// Interrupt Error
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]

@@ -15,6 +15,7 @@ pub enum Chip {
     Esp32c3,
     Esp32c6,
     Esp32h2,
+    Esp32p4,
     Esp32s2,
     Esp32s3,
 }
@@ -27,11 +28,12 @@ impl core::str::FromStr for Chip {
             "esp32c3" => Ok(Self::Esp32c3),
             "esp32c6" => Ok(Self::Esp32c6),
             "esp32h2" => Ok(Self::Esp32h2),
+            "esp32p4" => Ok(Self::Esp32p4),
             "esp32s2" => Ok(Self::Esp32s2),
             "esp32s3" => Ok(Self::Esp32s3),
             _ => Err(alloc::format!(
                 "Unknown chip {s}. Possible options: esp32, esp32c2, esp32c3, esp32c6, esp32h2, \
-                 esp32s2, esp32s3"
+                 esp32p4, esp32s2, esp32s3"
             )),
         }
     }
@@ -47,6 +49,7 @@ impl Chip {
             ("CARGO_FEATURE_ESP32C3", Self::Esp32c3),
             ("CARGO_FEATURE_ESP32C6", Self::Esp32c6),
             ("CARGO_FEATURE_ESP32H2", Self::Esp32h2),
+            ("CARGO_FEATURE_ESP32P4", Self::Esp32p4),
             ("CARGO_FEATURE_ESP32S2", Self::Esp32s2),
             ("CARGO_FEATURE_ESP32S3", Self::Esp32s3),
         ];
@@ -56,7 +59,7 @@ impl Chip {
                 if chip.is_some() {
                     return Err(
                         "Expected exactly one of the following features to be enabled: esp32, \
-                         esp32c2, esp32c3, esp32c6, esp32h2, esp32s2, esp32s3",
+                         esp32c2, esp32c3, esp32c6, esp32h2, esp32p4, esp32s2, esp32s3",
                     );
                 }
                 chip = Some(c);
@@ -66,7 +69,7 @@ impl Chip {
             Some(chip) => Ok(chip),
             None => Err(
                 "Expected exactly one of the following features to be enabled: esp32, esp32c2, \
-                 esp32c3, esp32c6, esp32h2, esp32s2, esp32s3",
+                 esp32c3, esp32c6, esp32h2, esp32p4, esp32s2, esp32s3",
             ),
         }
     }
@@ -92,6 +95,7 @@ impl Chip {
             Self::Esp32c3 => "esp32c3",
             Self::Esp32c6 => "esp32c6",
             Self::Esp32h2 => "esp32h2",
+            Self::Esp32p4 => "esp32p4",
             Self::Esp32s2 => "esp32s2",
             Self::Esp32s3 => "esp32s3",
         }
@@ -144,6 +148,7 @@ impl Chip {
             Self::Esp32c3,
             Self::Esp32c6,
             Self::Esp32h2,
+            Self::Esp32p4,
             Self::Esp32s2,
             Self::Esp32s3,
         ]
@@ -2803,6 +2808,596 @@ impl Chip {
                     },
                 ],
             },
+            Self::Esp32p4 => Config {
+                architecture: "riscv",
+                target: "riscv32imafc-unknown-none-elf",
+                symbols: &[
+                    "esp32p4",
+                    "riscv",
+                    "multi_core",
+                    "soc_has_adc",
+                    "soc_has_aes",
+                    "soc_has_ahb_dma",
+                    "soc_has_assist_debug",
+                    "soc_has_axi_dma",
+                    "soc_has_axi_icm",
+                    "soc_has_bitscrambler",
+                    "soc_has_cache",
+                    "soc_has_dma",
+                    "soc_has_ds",
+                    "soc_has_ecc",
+                    "soc_has_ecdsa",
+                    "soc_has_efuse",
+                    "soc_has_gpio",
+                    "soc_has_gpio_sd",
+                    "soc_has_h264",
+                    "soc_has_h264_dma",
+                    "soc_has_hmac",
+                    "soc_has_hp_sys",
+                    "soc_has_hp_sys_clkrst",
+                    "soc_has_i2c0",
+                    "soc_has_i2c1",
+                    "soc_has_i2s0",
+                    "soc_has_i2s1",
+                    "soc_has_i2s2",
+                    "soc_has_i3c_mst",
+                    "soc_has_i3c_mst_mem",
+                    "soc_has_i3c_slv",
+                    "soc_has_interrupt_core0",
+                    "soc_has_interrupt_core1",
+                    "soc_has_io_mux",
+                    "soc_has_isp",
+                    "soc_has_jpeg",
+                    "soc_has_lcd_cam",
+                    "soc_has_ledc",
+                    "soc_has_lp_adc",
+                    "soc_has_lp_ana",
+                    "soc_has_lp_aon_clkrst",
+                    "soc_has_lp_gpio",
+                    "soc_has_lp_huk",
+                    "soc_has_lp_i2c0",
+                    "soc_has_lp_i2c_ana_mst",
+                    "soc_has_lp_i2s0",
+                    "soc_has_lp_intr",
+                    "soc_has_lp_io_mux",
+                    "soc_has_lp_peri",
+                    "soc_has_lp_sys",
+                    "soc_has_lp_timer",
+                    "soc_has_lp_touch",
+                    "soc_has_lp_tsens",
+                    "soc_has_lp_uart",
+                    "soc_has_lp_wdt",
+                    "soc_has_mcpwm0",
+                    "soc_has_mcpwm1",
+                    "soc_has_mipi_csi_bridge",
+                    "soc_has_mipi_csi_host",
+                    "soc_has_mipi_dsi_bridge",
+                    "soc_has_mipi_dsi_host",
+                    "soc_has_parl_io",
+                    "soc_has_pau",
+                    "soc_has_pcnt",
+                    "soc_has_pmu",
+                    "soc_has_ppa",
+                    "soc_has_pvt",
+                    "soc_has_rmt",
+                    "soc_has_rsa",
+                    "soc_has_sdhost",
+                    "soc_has_sha",
+                    "soc_has_soc_etm",
+                    "soc_has_spi0",
+                    "soc_has_spi1",
+                    "soc_has_spi2",
+                    "soc_has_spi3",
+                    "soc_has_systimer",
+                    "soc_has_timg0",
+                    "soc_has_timg1",
+                    "soc_has_trace0",
+                    "soc_has_trace1",
+                    "soc_has_twai0",
+                    "soc_has_twai1",
+                    "soc_has_twai2",
+                    "soc_has_uart0",
+                    "soc_has_uart1",
+                    "soc_has_uart2",
+                    "soc_has_uart3",
+                    "soc_has_uart4",
+                    "soc_has_uhci0",
+                    "soc_has_usb_device",
+                    "soc_has_usb_wrap",
+                    "soc_has_lpwr",
+                    "soc_has_system",
+                    "soc_has_sw_interrupt",
+                    "gdma",
+                    "clic",
+                    "very_large_intr_status",
+                    "gpio_bank_1",
+                    "spi_octal",
+                    "soc",
+                    "dma",
+                    "gpio",
+                    "i2c_master",
+                    "interrupts",
+                    "io_mux",
+                    "sleep",
+                    "systimer",
+                    "timergroup",
+                    "uart",
+                    "timergroup_timg0",
+                    "timergroup_timg1",
+                    "soc_cpu_has_csr_pc",
+                    "soc_rc_fast_clk_default=\"20000000\"",
+                    "soc_rc_fast_clk_default_is_set",
+                    "soc_rc_slow_clock=\"150000\"",
+                    "soc_rc_slow_clock_is_set",
+                    "soc_has_clock_node_xtal_clk",
+                    "soc_has_clock_node_cpll_clk",
+                    "soc_has_clock_node_rc_fast_clk",
+                    "soc_has_clock_node_mpll_clk",
+                    "soc_has_clock_node_spll_clk",
+                    "soc_has_clock_node_xtal32k_clk",
+                    "soc_has_clock_node_rc_slow_clk",
+                    "soc_has_clock_node_osc_slow_clk",
+                    "soc_has_clock_node_pll_lp_clk",
+                    "soc_has_clock_node_root_clk",
+                    "soc_has_clock_node_cpu_clk",
+                    "soc_has_clock_node_mem_clk",
+                    "soc_has_clock_node_sys_clk",
+                    "soc_has_clock_node_apb_clk",
+                    "soc_has_clock_node_pll_f50m_clk",
+                    "soc_has_clock_node_pll_f25m_clk",
+                    "soc_has_clock_node_pll_f240m_clk",
+                    "soc_has_clock_node_pll_f160m_clk",
+                    "soc_has_clock_node_pll_f120m_clk",
+                    "soc_has_clock_node_pll_f80m_clk",
+                    "soc_has_clock_node_pll_f20m_clk",
+                    "soc_has_clock_node_lp_slow_clk",
+                    "soc_has_clock_node_lp_fast_clk",
+                    "soc_has_clock_node_lp_dyn_slow_clk",
+                    "soc_has_clock_node_lp_dyn_fast_clk",
+                    "soc_has_clock_node_lp_peri_clk",
+                    "soc_has_clock_node_xtal_d2_clk",
+                    "soc_has_clock_node_timg0_function_clock",
+                    "soc_has_clock_node_timg1_function_clock",
+                    "soc_has_clock_node_uart0_function_clock",
+                    "soc_has_clock_node_uart1_function_clock",
+                    "soc_has_clock_node_uart2_function_clock",
+                    "soc_has_clock_node_uart3_function_clock",
+                    "soc_has_clock_node_uart4_function_clock",
+                    "has_dram_region",
+                    "gpio_gpio_function=\"1\"",
+                    "gpio_constant_0_input=\"60\"",
+                    "gpio_constant_1_input=\"56\"",
+                    "gpio_func_in_sel_offset=\"0\"",
+                    "gpio_input_signal_max=\"255\"",
+                    "gpio_output_signal_max=\"255\"",
+                    "i2c_master_has_fsm_timeouts",
+                    "i2c_master_has_hw_bus_clear",
+                    "i2c_master_has_bus_timeout_enable",
+                    "i2c_master_can_estimate_nack_reason",
+                    "i2c_master_has_conf_update",
+                    "i2c_master_has_reliable_fsm_reset",
+                    "i2c_master_has_arbitration_en",
+                    "i2c_master_has_tx_fifo_watermark",
+                    "i2c_master_bus_timeout_is_exponential",
+                    "i2c_master_max_bus_timeout=\"31\"",
+                    "i2c_master_ll_intr_mask=\"262143\"",
+                    "i2c_master_fifo_size=\"32\"",
+                    "interrupts_status_registers=\"4\"",
+                    "sleep_light_sleep",
+                    "sleep_deep_sleep",
+                    "timergroup_timg_has_divcnt_rst",
+                    "uart_ram_size=\"128\"",
+                    "uart_peripheral_controls_mem_clk",
+                ],
+                cfgs: &[
+                    "cargo:rustc-cfg=esp32p4",
+                    "cargo:rustc-cfg=riscv",
+                    "cargo:rustc-cfg=multi_core",
+                    "cargo:rustc-cfg=soc_has_adc",
+                    "cargo:rustc-cfg=soc_has_aes",
+                    "cargo:rustc-cfg=soc_has_ahb_dma",
+                    "cargo:rustc-cfg=soc_has_assist_debug",
+                    "cargo:rustc-cfg=soc_has_axi_dma",
+                    "cargo:rustc-cfg=soc_has_axi_icm",
+                    "cargo:rustc-cfg=soc_has_bitscrambler",
+                    "cargo:rustc-cfg=soc_has_cache",
+                    "cargo:rustc-cfg=soc_has_dma",
+                    "cargo:rustc-cfg=soc_has_ds",
+                    "cargo:rustc-cfg=soc_has_ecc",
+                    "cargo:rustc-cfg=soc_has_ecdsa",
+                    "cargo:rustc-cfg=soc_has_efuse",
+                    "cargo:rustc-cfg=soc_has_gpio",
+                    "cargo:rustc-cfg=soc_has_gpio_sd",
+                    "cargo:rustc-cfg=soc_has_h264",
+                    "cargo:rustc-cfg=soc_has_h264_dma",
+                    "cargo:rustc-cfg=soc_has_hmac",
+                    "cargo:rustc-cfg=soc_has_hp_sys",
+                    "cargo:rustc-cfg=soc_has_hp_sys_clkrst",
+                    "cargo:rustc-cfg=soc_has_i2c0",
+                    "cargo:rustc-cfg=soc_has_i2c1",
+                    "cargo:rustc-cfg=soc_has_i2s0",
+                    "cargo:rustc-cfg=soc_has_i2s1",
+                    "cargo:rustc-cfg=soc_has_i2s2",
+                    "cargo:rustc-cfg=soc_has_i3c_mst",
+                    "cargo:rustc-cfg=soc_has_i3c_mst_mem",
+                    "cargo:rustc-cfg=soc_has_i3c_slv",
+                    "cargo:rustc-cfg=soc_has_interrupt_core0",
+                    "cargo:rustc-cfg=soc_has_interrupt_core1",
+                    "cargo:rustc-cfg=soc_has_io_mux",
+                    "cargo:rustc-cfg=soc_has_isp",
+                    "cargo:rustc-cfg=soc_has_jpeg",
+                    "cargo:rustc-cfg=soc_has_lcd_cam",
+                    "cargo:rustc-cfg=soc_has_ledc",
+                    "cargo:rustc-cfg=soc_has_lp_adc",
+                    "cargo:rustc-cfg=soc_has_lp_ana",
+                    "cargo:rustc-cfg=soc_has_lp_aon_clkrst",
+                    "cargo:rustc-cfg=soc_has_lp_gpio",
+                    "cargo:rustc-cfg=soc_has_lp_huk",
+                    "cargo:rustc-cfg=soc_has_lp_i2c0",
+                    "cargo:rustc-cfg=soc_has_lp_i2c_ana_mst",
+                    "cargo:rustc-cfg=soc_has_lp_i2s0",
+                    "cargo:rustc-cfg=soc_has_lp_intr",
+                    "cargo:rustc-cfg=soc_has_lp_io_mux",
+                    "cargo:rustc-cfg=soc_has_lp_peri",
+                    "cargo:rustc-cfg=soc_has_lp_sys",
+                    "cargo:rustc-cfg=soc_has_lp_timer",
+                    "cargo:rustc-cfg=soc_has_lp_touch",
+                    "cargo:rustc-cfg=soc_has_lp_tsens",
+                    "cargo:rustc-cfg=soc_has_lp_uart",
+                    "cargo:rustc-cfg=soc_has_lp_wdt",
+                    "cargo:rustc-cfg=soc_has_mcpwm0",
+                    "cargo:rustc-cfg=soc_has_mcpwm1",
+                    "cargo:rustc-cfg=soc_has_mipi_csi_bridge",
+                    "cargo:rustc-cfg=soc_has_mipi_csi_host",
+                    "cargo:rustc-cfg=soc_has_mipi_dsi_bridge",
+                    "cargo:rustc-cfg=soc_has_mipi_dsi_host",
+                    "cargo:rustc-cfg=soc_has_parl_io",
+                    "cargo:rustc-cfg=soc_has_pau",
+                    "cargo:rustc-cfg=soc_has_pcnt",
+                    "cargo:rustc-cfg=soc_has_pmu",
+                    "cargo:rustc-cfg=soc_has_ppa",
+                    "cargo:rustc-cfg=soc_has_pvt",
+                    "cargo:rustc-cfg=soc_has_rmt",
+                    "cargo:rustc-cfg=soc_has_rsa",
+                    "cargo:rustc-cfg=soc_has_sdhost",
+                    "cargo:rustc-cfg=soc_has_sha",
+                    "cargo:rustc-cfg=soc_has_soc_etm",
+                    "cargo:rustc-cfg=soc_has_spi0",
+                    "cargo:rustc-cfg=soc_has_spi1",
+                    "cargo:rustc-cfg=soc_has_spi2",
+                    "cargo:rustc-cfg=soc_has_spi3",
+                    "cargo:rustc-cfg=soc_has_systimer",
+                    "cargo:rustc-cfg=soc_has_timg0",
+                    "cargo:rustc-cfg=soc_has_timg1",
+                    "cargo:rustc-cfg=soc_has_trace0",
+                    "cargo:rustc-cfg=soc_has_trace1",
+                    "cargo:rustc-cfg=soc_has_twai0",
+                    "cargo:rustc-cfg=soc_has_twai1",
+                    "cargo:rustc-cfg=soc_has_twai2",
+                    "cargo:rustc-cfg=soc_has_uart0",
+                    "cargo:rustc-cfg=soc_has_uart1",
+                    "cargo:rustc-cfg=soc_has_uart2",
+                    "cargo:rustc-cfg=soc_has_uart3",
+                    "cargo:rustc-cfg=soc_has_uart4",
+                    "cargo:rustc-cfg=soc_has_uhci0",
+                    "cargo:rustc-cfg=soc_has_usb_device",
+                    "cargo:rustc-cfg=soc_has_usb_wrap",
+                    "cargo:rustc-cfg=soc_has_lpwr",
+                    "cargo:rustc-cfg=soc_has_system",
+                    "cargo:rustc-cfg=soc_has_sw_interrupt",
+                    "cargo:rustc-cfg=gdma",
+                    "cargo:rustc-cfg=clic",
+                    "cargo:rustc-cfg=very_large_intr_status",
+                    "cargo:rustc-cfg=gpio_bank_1",
+                    "cargo:rustc-cfg=spi_octal",
+                    "cargo:rustc-cfg=soc",
+                    "cargo:rustc-cfg=dma",
+                    "cargo:rustc-cfg=gpio",
+                    "cargo:rustc-cfg=i2c_master",
+                    "cargo:rustc-cfg=interrupts",
+                    "cargo:rustc-cfg=io_mux",
+                    "cargo:rustc-cfg=sleep",
+                    "cargo:rustc-cfg=systimer",
+                    "cargo:rustc-cfg=timergroup",
+                    "cargo:rustc-cfg=uart",
+                    "cargo:rustc-cfg=timergroup_timg0",
+                    "cargo:rustc-cfg=timergroup_timg1",
+                    "cargo:rustc-cfg=soc_cpu_has_csr_pc",
+                    "cargo:rustc-cfg=soc_rc_fast_clk_default=\"20000000\"",
+                    "cargo:rustc-cfg=soc_rc_fast_clk_default_is_set",
+                    "cargo:rustc-cfg=soc_rc_slow_clock=\"150000\"",
+                    "cargo:rustc-cfg=soc_rc_slow_clock_is_set",
+                    "cargo:rustc-cfg=soc_has_clock_node_xtal_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_cpll_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_rc_fast_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_mpll_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_spll_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_xtal32k_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_rc_slow_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_osc_slow_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_lp_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_root_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_cpu_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_mem_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_sys_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_apb_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_f50m_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_f25m_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_f240m_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_f160m_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_f120m_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_f80m_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_pll_f20m_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_lp_slow_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_lp_fast_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_lp_dyn_slow_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_lp_dyn_fast_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_lp_peri_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_xtal_d2_clk",
+                    "cargo:rustc-cfg=soc_has_clock_node_timg0_function_clock",
+                    "cargo:rustc-cfg=soc_has_clock_node_timg1_function_clock",
+                    "cargo:rustc-cfg=soc_has_clock_node_uart0_function_clock",
+                    "cargo:rustc-cfg=soc_has_clock_node_uart1_function_clock",
+                    "cargo:rustc-cfg=soc_has_clock_node_uart2_function_clock",
+                    "cargo:rustc-cfg=soc_has_clock_node_uart3_function_clock",
+                    "cargo:rustc-cfg=soc_has_clock_node_uart4_function_clock",
+                    "cargo:rustc-cfg=has_dram_region",
+                    "cargo:rustc-cfg=gpio_gpio_function=\"1\"",
+                    "cargo:rustc-cfg=gpio_constant_0_input=\"60\"",
+                    "cargo:rustc-cfg=gpio_constant_1_input=\"56\"",
+                    "cargo:rustc-cfg=gpio_func_in_sel_offset=\"0\"",
+                    "cargo:rustc-cfg=gpio_input_signal_max=\"255\"",
+                    "cargo:rustc-cfg=gpio_output_signal_max=\"255\"",
+                    "cargo:rustc-cfg=i2c_master_has_fsm_timeouts",
+                    "cargo:rustc-cfg=i2c_master_has_hw_bus_clear",
+                    "cargo:rustc-cfg=i2c_master_has_bus_timeout_enable",
+                    "cargo:rustc-cfg=i2c_master_can_estimate_nack_reason",
+                    "cargo:rustc-cfg=i2c_master_has_conf_update",
+                    "cargo:rustc-cfg=i2c_master_has_reliable_fsm_reset",
+                    "cargo:rustc-cfg=i2c_master_has_arbitration_en",
+                    "cargo:rustc-cfg=i2c_master_has_tx_fifo_watermark",
+                    "cargo:rustc-cfg=i2c_master_bus_timeout_is_exponential",
+                    "cargo:rustc-cfg=i2c_master_max_bus_timeout=\"31\"",
+                    "cargo:rustc-cfg=i2c_master_ll_intr_mask=\"262143\"",
+                    "cargo:rustc-cfg=i2c_master_fifo_size=\"32\"",
+                    "cargo:rustc-cfg=interrupts_status_registers=\"4\"",
+                    "cargo:rustc-cfg=sleep_light_sleep",
+                    "cargo:rustc-cfg=sleep_deep_sleep",
+                    "cargo:rustc-cfg=timergroup_timg_has_divcnt_rst",
+                    "cargo:rustc-cfg=uart_ram_size=\"128\"",
+                    "cargo:rustc-cfg=uart_peripheral_controls_mem_clk",
+                ],
+                memory_layout: &MemoryLayout {
+                    regions: &[(
+                        "dram",
+                        MemoryRegion {
+                            address_range: 0x4FF00000..0x4FFC0000,
+                        },
+                    )],
+                },
+                pins: &[
+                    PinInfo {
+                        pin: 0,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 1,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 2,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 3,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 4,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 5,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 6,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 7,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 8,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 9,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 10,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 11,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 12,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 13,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 14,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 15,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 16,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 17,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 18,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 19,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 20,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 21,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 22,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 23,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 24,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 25,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 26,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 27,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 28,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 29,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 30,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 31,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 32,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 33,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 34,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 35,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 36,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 37,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 38,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 39,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 40,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 41,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 42,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 43,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 44,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 45,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 46,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 47,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 48,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 49,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 50,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 51,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 52,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 53,
+                        limitations: &[],
+                    },
+                    PinInfo {
+                        pin: 54,
+                        limitations: &[],
+                    },
+                ],
+            },
             Self::Esp32s2 => Config {
                 architecture: "xtensa",
                 target: "xtensa-esp32s2-none-elf",
@@ -4498,12 +5093,73 @@ pub fn emit_check_cfg_directives() {
     println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f64m_clk)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f48m_clk)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_lp_clk)");
+    println!("cargo:rustc-check-cfg=cfg(esp32p4)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_adc)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_ahb_dma)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_axi_dma)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_axi_icm)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_bitscrambler)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_cache)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_ecdsa)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_h264)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_h264_dma)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_hp_sys_clkrst)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_i2s2)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_i3c_mst)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_i3c_mst_mem)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_i3c_slv)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_interrupt_core1)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_isp)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_jpeg)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lcd_cam)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_adc)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_aon_clkrst)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_gpio)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_huk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_i2s0)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_intr)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_io_mux)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_sys)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_touch)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_lp_tsens)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_mipi_csi_bridge)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_mipi_csi_host)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_mipi_dsi_bridge)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_mipi_dsi_host)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_ppa)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_pvt)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_soc_etm)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_trace1)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_twai2)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_uart3)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_uart4)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_usb_wrap)");
+    println!("cargo:rustc-check-cfg=cfg(clic)");
+    println!("cargo:rustc-check-cfg=cfg(very_large_intr_status)");
+    println!("cargo:rustc-check-cfg=cfg(gpio_bank_1)");
+    println!("cargo:rustc-check-cfg=cfg(spi_octal)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_cpll_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_mpll_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_spll_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_root_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_mem_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_sys_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f50m_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f25m_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f240m_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f120m_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f80m_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_pll_f20m_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_lp_dyn_slow_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_lp_dyn_fast_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_lp_peri_clk)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_uart3_function_clock)");
+    println!("cargo:rustc-check-cfg=cfg(soc_has_clock_node_uart4_function_clock)");
     println!("cargo:rustc-check-cfg=cfg(esp32s2)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_dedicated_gpio)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_pms)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_syscon)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_usb0)");
-    println!("cargo:rustc-check-cfg=cfg(soc_has_usb_wrap)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_dma_crypto)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_dma_copy)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_ulp_riscv_core)");
@@ -4518,8 +5174,6 @@ pub fn emit_check_cfg_directives() {
     println!("cargo:rustc-check-cfg=cfg(dedicated_gpio_needs_initialization)");
     println!("cargo:rustc-check-cfg=cfg(spi_master_has_octal)");
     println!("cargo:rustc-check-cfg=cfg(esp32s3)");
-    println!("cargo:rustc-check-cfg=cfg(soc_has_interrupt_core1)");
-    println!("cargo:rustc-check-cfg=cfg(soc_has_lcd_cam)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_peri_backup)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_rtc_cntl)");
     println!("cargo:rustc-check-cfg=cfg(soc_has_wcl)");
@@ -4533,7 +5187,8 @@ pub fn emit_check_cfg_directives() {
     println!("cargo:rustc-check-cfg=cfg(rmt_has_dma)");
     println!("cargo:rustc-check-cfg=cfg(soc_ref_tick_hz, values(\"1000000\"))");
     println!(
-        "cargo:rustc-check-cfg=cfg(soc_rc_fast_clk_default, values(\"8500000\",\"17500000\"))"
+        "cargo:rustc-check-cfg=cfg(soc_rc_fast_clk_default, \
+         values(\"8500000\",\"17500000\",\"20000000\"))"
     );
     println!(
         "cargo:rustc-check-cfg=cfg(soc_rc_slow_clock, values(\"150000\",\"136000\",\"90000\"))"
@@ -4544,9 +5199,9 @@ pub fn emit_check_cfg_directives() {
     println!("cargo:rustc-check-cfg=cfg(gpio_func_in_sel_offset, values(\"0\"))");
     println!(
         "cargo:rustc-check-cfg=cfg(gpio_input_signal_max, \
-         values(\"206\",\"100\",\"124\",\"242\",\"255\"))"
+         values(\"206\",\"100\",\"124\",\"255\",\"242\"))"
     );
-    println!("cargo:rustc-check-cfg=cfg(gpio_output_signal_max, values(\"256\",\"128\"))");
+    println!("cargo:rustc-check-cfg=cfg(gpio_output_signal_max, values(\"256\",\"128\",\"255\"))");
     println!(
         "cargo:rustc-check-cfg=cfg(i2c_master_i2c0_data_register_ahb_address, \
          values(\"1610690588\"))"

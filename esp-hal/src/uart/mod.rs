@@ -3350,7 +3350,7 @@ impl Info {
 
                     // define `conf` in scope for modification below
                     cfg_if::cfg_if! {
-                        if #[cfg(any(esp32c2, esp32c3, esp32s3))] {
+                        if #[cfg(any(esp32c2, esp32c3, esp32s3, esp32p4))] {
                             let conf = self.regs().clk_conf();
                         } else {
                             // UART clocks are configured via PCR
